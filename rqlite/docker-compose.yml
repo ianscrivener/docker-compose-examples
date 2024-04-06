@@ -1,0 +1,21 @@
+version: '3'
+services:
+  rqlite_macos:
+    image: rqlite/rqlite:latest
+    container_name: rqlite_macos
+    restart: unless-stopped  
+    privileged: true    
+    ports:
+      - "4001:4001"
+      - "4002:4002"
+    volumes:
+      - rqlite_01:/rqlite
+    command: "-http-addr 0.0.0.0:4001 -raft-addr 0.0.0.0:4002"
+    networks:
+      - rqlite  
+      
+volumes:
+  rqlite_01:
+
+networks:
+  rqlite:

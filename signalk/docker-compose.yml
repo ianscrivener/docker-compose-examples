@@ -1,0 +1,21 @@
+version: '3'
+services:
+  signalk:
+    image: signalk/signalk-server:latest
+    container_name: signalk
+    restart: unless-stopped
+    network_mode: host 
+    ports:
+      - "3000:3000"
+      - "10110:10110"
+      - "8375:8375"
+    environment:        
+      - NMEA0183PORT=10110
+      - TCPSTREAMPORT=8375
+    volumes:
+      - signalk:/home/node/.signalk     
+    entrypoint: sh /home/node/signalk/startup.sh
+    privileged: true
+
+volumes:
+  signalk:    
